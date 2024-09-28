@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=8 format=2]
+
+[ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/sweet_potato/effects/sweet_potato_effect_1.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/sweet_potato/effects/sweet_potato_effect_2.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/sweet_potato/effects/sweet_potato_effect_3.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/sweet_potato/effects/sweet_potato_effect_0.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/sweet_potato/effects/sweet_potato_effect_4.tres" type="Resource" id=6]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/sweet_potato/appearances/yam_sweet_potato.png" type="Texture" id=7]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "item_sweet_potato"
+unlocked_by_default = true
+icon = ExtResource( 7 )
+name = "Sweet Potato"
+tier = 3
+value = 101
+effects = [ ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ) ]
+tracking_text = ""
+is_cursed = false
+max_nb = -1
+item_appearances = [  ]
+tags = [ "stat_harvesting", "pickup_range", "xp_gain", "stat_range", "pickup" ]

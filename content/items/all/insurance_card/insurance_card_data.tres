@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/insurance_card/appearances/yam_insurance_card.png" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/insurance_card/effects/insurance_card_effect_0.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/insurance_card/effects/insurance_card_effect_1.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "item_insurance_card"
+unlocked_by_default = true
+icon = ExtResource( 2 )
+name = "Insurance Card"
+tier = 0
+value = 5
+effects = [ ExtResource( 3 ), ExtResource( 4 ) ]
+tracking_text = "MATERIALS_GAINED"
+is_cursed = false
+max_nb = -1
+item_appearances = [  ]
+tags = [ "stat_hp_regeneration" ]

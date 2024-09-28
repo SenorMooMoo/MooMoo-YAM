@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/cyberphant/appearances/yam_cyberphant.png" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/cyberphant/effects/cyberphant_effect_1.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/cyberphant/effects/cyberphant_effect_0.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "item_cyberphant"
+unlocked_by_default = true
+icon = ExtResource( 2 )
+name = "Cyberphant"
+tier = 3
+value = 90
+effects = [ ExtResource( 4 ), ExtResource( 3 ) ]
+tracking_text = "DAMAGE_DEALT"
+is_cursed = false
+max_nb = -1
+item_appearances = [  ]
+tags = [ "stat_engineering", "stat_luck", "wave_clear", "structure", "pickup" ]

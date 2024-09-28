@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/turret_bros/effects/turret_bros_effect_0.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/turret_bros/appearances/yam_turretbros_icon.png" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/turret_bros/effects/turret_bros_effect_1.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "item_turret_bros"
+unlocked_by_default = true
+icon = ExtResource( 3 )
+name = "Turret Bros."
+tier = 1
+value = 50
+effects = [ ExtResource( 2 ), ExtResource( 4 ) ]
+tracking_text = ""
+is_cursed = false
+max_nb = -1
+item_appearances = [  ]
+tags = [ "stat_engineerning", "structure_turret", "structure" ]

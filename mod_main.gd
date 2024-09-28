@@ -34,6 +34,9 @@ func _ready()->void:
 	ModLoaderUtils.log_info("Ready", YAM_LOG)
 
 	var ContentLoader = get_node("/root/ModLoader/Darkly77-ContentLoader/ContentLoader")
+	
+	# Items
+	ContentLoader.load_data(dir + "/content_data/items/all/all_items.tres", YAM_LOG)
 
 	# Ranged_Weapons
 	ContentLoader.load_data(dir + "/content_data/weapons/ranged/boomerang.tres", YAM_LOG)
