@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=9 format=2]
 
 [ext_resource path="res://mods-unpacked/Darkly77-ContentLoader/content_data.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/turret_bros/turret_bros_data.tres" type="Resource" id=2]
@@ -7,11 +7,12 @@
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/blood_orange/blood_orange_data.tres" type="Resource" id=5]
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/insurance_card/insurance_card_data.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/cyberphant/cyberphant_data.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/lead_tooth/lead_tooth_data.tres" type="Resource" id=8]
 
 [resource]
 script = ExtResource( 1 )
 characters = [  ]
-items = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ]
+items = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ]
 weapons = [  ]
 weapons_characters = [  ]
 sets = [  ]
@@ -20,5 +21,5 @@ upgrades = [  ]
 consumables = [  ]
 elites = [  ]
 difficulties = [  ]
-debug_items = [ ExtResource( 2 ), ExtResource( 7 ) ]
+debug_items = [ ExtResource( 8 ) ]
 debug_weapons = [  ]

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/lead_tooth/appearances/yam_lead_tooth.png" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/lead_tooth/effects/lead_tooth_effect_2.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/lead_tooth/effects/lead_tooth_effect_0.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/lead_tooth/effects/lead_tooth_effect_1.tres" type="Resource" id=5]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "item_lead_tooth"
+unlocked_by_default = true
+icon = ExtResource( 2 )
+name = "Lead Tooth"
+tier = 0
+value = 22
+effects = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ) ]
+tracking_text = ""
+is_cursed = false
+max_nb = 32
+item_appearances = [  ]
+tags = [  ]
