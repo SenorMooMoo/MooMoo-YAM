@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/plasma_ray/yam_plasma_ray_icon.png" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/plasma_ray/4/plasma_ray_4_stats.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/plasma_ray/plasma_ray.tscn" type="PackedScene" id=4]
+[ext_resource path="res://items/sets/fire/fire_set_data.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/plasma_ray/plasma_ray_effect_0.tres" type="Resource" id=8]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "weapon_plasma_ray_4"
+unlocked_by_default = true
+icon = ExtResource( 2 )
+name = "Plasma Ray"
+tier = 3
+value = 86
+effects = [ ExtResource( 8 ) ]
+tracking_text = ""
+is_cursed = false
+weapon_id = "weapon_plasma_ray"
+type = 1
+sets = [ ExtResource( 7 ) ]
+scene = ExtResource( 4 )
+stats = ExtResource( 3 )

@@ -37,7 +37,8 @@ func _ready()->void:
 
 	# Ranged_Weapons
 	ContentLoader.load_data(dir + "/content_data/weapons/ranged/boomerang.tres", YAM_LOG)
-
+	ContentLoader.load_data(dir + "/content_data/weapons/ranged/plasma_ray.tres", YAM_LOG)
+	
 	# ! This uses Godot's native `tr` func, which translates a string. You'll
 	# ! find this particular string in the example CSV here: translations/modname.csv
 	ModLoaderUtils.log_info(str("Translation Demo: ", tr("YAM is ready")), YAM_LOG)

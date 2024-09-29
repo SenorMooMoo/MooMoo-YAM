@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://mods-unpacked/Darkly77-ContentLoader/content_data.gd" type="Script" id=1]
+[ext_resource path="res://items/characters/well_rounded/well_rounded_data.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/plasma_ray/3/plasma_ray_3_data.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/plasma_ray/4/plasma_ray_4_data.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+characters = [  ]
+items = [  ]
+weapons = [ ExtResource( 3 ), ExtResource( 4 ) ]
+weapons_characters = [ [ ExtResource( 2 ) ] ]
+sets = [  ]
+challenges = [  ]
+upgrades = [  ]
+consumables = [  ]
+elites = [  ]
+difficulties = [  ]
+debug_items = [  ]
+debug_weapons = [  ]
