@@ -19,12 +19,14 @@ func _init() -> void:
 	
 func install_script_extensions() -> void:
 	ext_dir = dir.plus_file("extensions")
-	# extensions_dir_path = mod_dir_path.path_join("extensions") # Godot 4
+	#ext_dir = dir.path_join("extensions") # Godot 4
 
-		# ModLoaderMod.install_script_extension(extensions_dir_path.plus_file(...))
-
-
-
+	ModLoaderMod.install_script_extension(ext_dir.plus_file("main.gd"))
+	ModLoaderMod.install_script_extension(ext_dir.plus_file("entities/units/unit/unit.gd"))
+	ModLoaderMod.install_script_extension(ext_dir.plus_file("entities/units/enemies/enemy.gd"))
+	ModLoaderMod.install_script_extension(ext_dir.plus_file("projectiles/player_projectile.gd"))
+	ModLoaderMod.install_script_extension(ext_dir.plus_file("overlap/hitbox.gd"))
+	
 func add_translations() -> void:
 	trans_dir = dir.plus_file("translations")
 		# ModLoaderMod.add_translation(translations_dir_path.plus_file(...))
@@ -38,6 +40,9 @@ func _ready()->void:
 	# Ranged_Weapons
 	ContentLoader.load_data(dir + "/content_data/weapons/ranged/boomerang.tres", YAM_LOG)
 	ContentLoader.load_data(dir + "/content_data/weapons/ranged/plasma_ray.tres", YAM_LOG)
+	
+	# Debug
+	ContentLoader.load_data(dir + "/content_data/debug.tres", YAM_LOG)
 	
 	# ! This uses Godot's native `tr` func, which translates a string. You'll
 	# ! find this particular string in the example CSV here: translations/modname.csv
