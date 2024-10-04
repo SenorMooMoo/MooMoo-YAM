@@ -3,7 +3,8 @@ extends "res://entities/units/unit/unit.gd"
 var plasma_procs:Array
 
 var plasma_mat = preload("res://mods-unpacked/MooMoo-YAM/content/resources/shaders/plasma_effect/plasma_shader_material.tres")
-#var plasma_mat_modifier: float = 0.0
+# var plasma_mat_modifier: float = 0.0
+# No support for per-instance shader modifying :(
 
 func _on_Hurtbox_area_entered(hitbox:Area2D)->void :
 	if not hitbox.active or hitbox.ignored_objects.has(self):
@@ -90,5 +91,13 @@ func _on_Hurtbox_area_entered(hitbox:Area2D)->void :
 func plasma_glow()->void :
 	var is_already_glowing = sprite.material == plasma_mat
 	if not is_already_glowing:
-		_non_flash_material = plasma_mat
 		sprite.material = plasma_mat
+		_non_flash_material = plasma_mat
+
+#	NOTE: Shaders do not have support for modifying parameters on one instance at a time,
+#	only for the entire shader. Maybe one day.
+
+#	plasma_mat_modifier += float(0.10)
+#	plasma_mat.set_shader_param("plasma_modifier", plasma_mat_modifier) 
+#	_non_flash_material = plasma_mat
+#	sprite.material = plasma_mat

@@ -4,10 +4,9 @@
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/resources/shaders/plasma_effect/yam_plasma_noise_atlas.tres" type="Texture" id=2]
 
 [resource]
-resource_local_to_scene = true
 shader = ExtResource( 1 )
 shader_param/animation_speed_x = 0.2
 shader_param/animation_speed_y = 0.1
-shader_param/plasma_color = Color( 0.8, 0.8, 0, 1 )
-shader_param/plasma_modifier = 0.5
+shader_param/plasma_color = Color( 0, 0, 0, 1 )
+shader_param/plasma_modifier = 0.17
 shader_param/noise_texture = ExtResource( 2 )
