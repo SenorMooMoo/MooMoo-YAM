@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/resources/shaders/criticalmass.png" type="Texture" id=1]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/resources/shaders/plasma_effect/plasma_shader_material.tres" type="Material" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+[node name="Node2D" type="Node2D"]
+material = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )

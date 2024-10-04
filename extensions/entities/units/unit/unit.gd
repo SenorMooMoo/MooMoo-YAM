@@ -2,7 +2,7 @@ extends "res://entities/units/unit/unit.gd"
 
 var plasma_procs:Array
 
-var plasma_mat = load("res://mods-unpacked/MooMoo-YAM/content/resources/shaders/plasma_shader_material.tres")
+var plasma_mat = preload("res://mods-unpacked/MooMoo-YAM/content/resources/shaders/plasma_effect/plasma_shader_material.tres")
 #var plasma_mat_modifier: float = 0.0
 
 func _on_Hurtbox_area_entered(hitbox:Area2D)->void :
