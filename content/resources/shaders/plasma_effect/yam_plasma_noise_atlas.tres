@@ -3,5 +3,5 @@
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/resources/shaders/plasma_effect/yam_plasma_noise.png" type="Texture" id=1]
 
 [resource]
-flags = 2
+flags = 23
 atlas = ExtResource( 1 )

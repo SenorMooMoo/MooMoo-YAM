@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/effects/weapons/yam_plasma_effect.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/plasma_ray/plasma_ray_projectile_stats.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/plasma_ray/4/plasma_ray_projectile_stats_4.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )

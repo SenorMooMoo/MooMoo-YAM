@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://mods-unpacked/Darkly77-ContentLoader/content_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/sets/plasma/plasma_set_data.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -8,7 +9,7 @@ characters = [  ]
 items = [  ]
 weapons = [  ]
 weapons_characters = [  ]
-sets = [  ]
+sets = [ ExtResource( 2 ) ]
 challenges = [  ]
 upgrades = [  ]
 consumables = [  ]

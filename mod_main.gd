@@ -41,6 +41,8 @@ func _ready()->void:
 	ContentLoader.load_data(dir + "/content_data/weapons/ranged/boomerang.tres", YAM_LOG)
 	ContentLoader.load_data(dir + "/content_data/weapons/ranged/plasma_ray.tres", YAM_LOG)
 	
+	# Weapon_Sets
+	ContentLoader.load_data(dir + "/content_data/items/sets/set_data.tres", YAM_LOG)
 	# Debug
 	ContentLoader.load_data(dir + "/content_data/debug.tres", YAM_LOG)
 	
