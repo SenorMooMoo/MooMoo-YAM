@@ -1,13 +1,11 @@
-[gd_resource type="Resource" load_steps=9 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/nanomachine/appearances/yam_nanomachine.png" type="Texture" id=2]
-[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/nanomachine/effects/nanomachine_effect_5.tres" type="Resource" id=3]
-[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/nanomachine/effects/nanomachine_effect_3.tres" type="Resource" id=4]
-[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/nanomachine/effects/nanomachine_effect_2.tres" type="Resource" id=5]
-[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/nanomachine/effects/nanomachine_effect_1.tres" type="Resource" id=6]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/nanomachine/effects/nanomachine_effect_2b.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/nanomachine/effects/nanomachine_effect_1.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/nanomachine/effects/nanomachine_effect_2.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/nanomachine/effects/nanomachine_effect_0.tres" type="Resource" id=7]
-[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/items/all/nanomachine/effects/nanomachine_effect_4.tres" type="Resource" id=8]
 
 [resource]
 script = ExtResource( 1 )
@@ -15,11 +13,12 @@ my_id = "item_nanomachine"
 unlocked_by_default = true
 icon = ExtResource( 2 )
 name = "Nanomachine"
-tier = 0
-value = 15
-effects = [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 3 ) ]
+tier = 2
+value = 75
+effects = [ ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 3 ) ]
 tracking_text = ""
+is_lockable = true
 is_cursed = false
 max_nb = -1
 item_appearances = [  ]
-tags = [ "stat_hp_regeneration", "stat_engineering", "stat_speed" ]
+tags = [ "stat_hp_regeneration" ]
