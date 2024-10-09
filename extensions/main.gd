@@ -37,106 +37,40 @@ func get_gold_bag_pos()->Vector2:
 	return gold_bag_pos
 
 func _on_enemy_died(enemy:Enemy, args:Entity.DieArgs)->void :
-	RunData.current_living_enemies -= 1
+	._on_enemy_died(enemy, args)
+	
+	if _cleaning_up or not args.enemy_killed_by_player:
+		return
 
-	if _update_stats_on_enemies_changed_timer != null and _update_stats_on_enemies_changed_timer.is_stopped():
-		for player_index in RunData.get_player_count():
-			if not LinkedStats.update_for_player_on_enemy_change[player_index]:
-				continue
-			reload_stats(player_index)
-		_update_stats_on_enemies_changed_timer.start()
+#
+	var live_players: = _get_shuffled_live_players()
 
-	if not _cleaning_up and args.enemy_killed_by_player:
-		if enemy is Boss:
-			_nb_bosses_killed_this_wave += 1
+	for player in live_players:
+		for plasma_proj in enemy.plasma_procs:
+			var player_index = player.player_index
+			if plasma_proj["player"] == player_index:
+				var stats = plasma_proj["weapon_stats"]
 
-			if RunData.current_wave < RunData.nb_of_waves:
-				_elite_killed = true
-
-			var double_boss_active = RunData.sum_all_player_effects("double_boss") > 0
-			if (_nb_bosses_killed_this_wave >= 2 or not double_boss_active) and RunData.current_wave == RunData.nb_of_waves:
-
-				if RunData.is_endless_run:
-					var additional_groups = ZoneService.get_additional_groups(int((RunData.current_wave / 10.0) * 3), 90)
-					for i in additional_groups.size():
-						additional_groups[i].spawn_timing = _wave_timer.wait_time - _wave_timer.time_left + i
-					_wave_manager.add_groups(additional_groups)
-
+				var proj_on_death_stat_cache = _proj_on_death_stat_caches[player_index]
+				if proj_on_death_stat_cache.has(plasma_proj):
+					stats = proj_on_death_stat_cache[plasma_proj]
 				else :
-					_wave_timer.wait_time = 0.1
-					_wave_timer.start()
+					stats = WeaponService.init_ranged_stats(plasma_proj["weapon_stats"], player_index, true)
+					proj_on_death_stat_cache[plasma_proj] = stats
 
-		var live_players: = _get_shuffled_live_players()
-
-		for player in live_players:
-			var player_index = player.player_index
-			var dmg_when_death = RunData.get_player_effect("dmg_when_death", player_index)
-			if dmg_when_death.size() > 0:
-				var dmg_taken = handle_stat_damages(dmg_when_death, player_index)
-				RunData.tracked_item_effects[player_index]["item_cyberball"] += dmg_taken[1]
-
-		for player in live_players:
-			var player_index = player.player_index
-			var projectiles_on_death = RunData.get_player_effect("projectiles_on_death", player_index)
-			for proj_on_death_effect in projectiles_on_death:
-				for i in proj_on_death_effect[0]:
-					var stats = proj_on_death_effect[1]
-
-					var proj_on_death_stat_cache = _proj_on_death_stat_caches[player_index]
-					if proj_on_death_stat_cache.has(i):
-						stats = proj_on_death_stat_cache[i]
-					else :
-						stats = WeaponService.init_ranged_stats(proj_on_death_effect[1], player_index, true)
-						proj_on_death_stat_cache[i] = stats
-
-					var auto_target_enemy:bool = proj_on_death_effect[2]
-					var from = player
-					var spawn_projectile_args: = WeaponServiceSpawnProjectileArgs.new()
-					spawn_projectile_args.from_player_index = player_index
-					var _projectile = WeaponService.manage_special_spawn_projectile(
-						enemy, 
-						stats, 
-						rand_range( - PI, PI), 
-						auto_target_enemy, 
-						_entity_spawner, 
-						from, 
-						spawn_projectile_args
-					)
-		for player in live_players:
-			for plasma_proj in enemy.plasma_procs:
-				var player_index = player.player_index
-				if plasma_proj["player"] == player_index:
-					var stats = plasma_proj["weapon_stats"]
-
-					var proj_on_death_stat_cache = _proj_on_death_stat_caches[player_index]
-					if proj_on_death_stat_cache.has(plasma_proj):
-						stats = proj_on_death_stat_cache[plasma_proj]
-					else :
-						stats = WeaponService.init_ranged_stats(plasma_proj["weapon_stats"], player_index, true)
-						proj_on_death_stat_cache[plasma_proj] = stats
-
-					var auto_target_enemy:bool = plasma_proj["auto_target_enemy"]
-					var from = player
-					var spawn_projectile_args: = WeaponServiceSpawnProjectileArgs.new()
-					spawn_projectile_args.from_player_index = player_index
-					var _projectile = WeaponService.manage_special_spawn_projectile(
-						enemy, 
-						stats, 
-						rand_range( - PI, PI), 
-						auto_target_enemy, 
-						_entity_spawner, 
-						from, 
-						spawn_projectile_args
-					)
-					
-		for player in live_players:
-			var player_index = player.player_index
-			RunData.handle_explode_effect("explode_on_death", enemy.global_position, player_index)
-			
-
-		spawn_loot(enemy, EntityType.ENEMY)
-
-		ProgressData.increment_stat("enemies_killed")
+				var auto_target_enemy:bool = plasma_proj["auto_target_enemy"]
+				var from = player
+				var spawn_projectile_args: = WeaponServiceSpawnProjectileArgs.new()
+				spawn_projectile_args.from_player_index = player_index
+				var _projectile = WeaponService.manage_special_spawn_projectile(
+					enemy, 
+					stats, 
+					rand_range( - PI, PI), 
+					auto_target_enemy, 
+					_entity_spawner, 
+					from, 
+					spawn_projectile_args
+				)
 
 # Custom
 # =============================================================================

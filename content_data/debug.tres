@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://mods-unpacked/Darkly77-ContentLoader/content_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/plasma_ray/3/plasma_ray_3_data.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -15,4 +16,4 @@ consumables = [  ]
 elites = [  ]
 difficulties = [  ]
 debug_items = [  ]
-debug_weapons = [  ]
+debug_weapons = [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ) ]
