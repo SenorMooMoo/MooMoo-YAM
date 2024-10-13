@@ -15,6 +15,7 @@ step = 0.02
 
 [node name="BoomerangProjectile" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+enable_physics_process = true
 rotation_speed = 25
 
 [node name="Sprite" parent="." index="0"]

@@ -11,6 +11,7 @@ export (int) var rotation_speed = 0
 var weapon_stats:Resource
 var spawn_position:Vector2
 
+var hit_max_range:bool
 
 var player_index:int setget _set_player_index, _get_player_index
 func _get_player_index()->int:
@@ -27,25 +28,35 @@ func _ready()->void :
 	set_physics_process(enable_physics_process)
 
 
+func _get_player()->Node:
+	return _hitbox.from._parent
+
+	
 func _physics_process(_delta:float)->void :
-
+	rotation_degrees += rotation_speed
 	var add_dist = PROJECTILE_ADDITIONAL_DISTANCE
-
+	var target = _get_player()
+	var direction = (target.global_position - global_position).angle()
+	var interp = 0
 	if ProgressData.is_manual_aim(player_index):
 		add_dist = PROJECTILE_ADDITIONAL_DISTANCE / 2.0
+		
+	if (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist)*.90 and not hit_max_range:
+		interp += 0.4*_delta
+		velocity = lerp(velocity, Vector2.RIGHT.rotated(direction) * (_hitbox.from.current_stats.projectile_speed/2), interp)
+	
+	if (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist) and not hit_max_range:
+		interp = 0
+		hit_max_range = true
+	
+	if hit_max_range:
+		interp += 0.4*_delta
+		velocity = lerp(velocity, (Vector2.RIGHT.rotated(direction) * _hitbox.from.current_stats.projectile_speed * 2), interp)
+		set_knockback_vector(Vector2.ZERO, 0.0, 0.0)
+		
+		if abs(global_position.distance_to(target.global_position)) < 10.0:
+			set_to_be_destroyed()
 
-	if (global_position - spawn_position).length() > weapon_stats.max_range + add_dist:
-		set_to_be_destroyed()
-#		var target = get_parent().get_parent()
-#		var direction = (target.global_position - global_position).angle()
-#		velocity = Vector2.RIGHT.rotated(direction) * velocity.length()
-#		rotation = velocity.angle()
-#		set_knockback_vector(Vector2.ZERO, 0.0, 0.0)
-#		if target.global_position - global_position < 40.0:
-#			set_to_be_destroyed()
-
-	if rotation_speed != 0:
-		rotation_degrees += 25
 
 
 func set_effects(effects:Array)->void :
@@ -107,3 +118,5 @@ func _on_Hitbox_critically_hit_something(_thing_hit:Node, _damage_dealt:int)->vo
 
 	for effect in remove_effects:
 		_hitbox.effects.erase(effect)
+
+
