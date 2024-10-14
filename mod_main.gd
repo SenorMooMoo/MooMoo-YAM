@@ -22,7 +22,7 @@ func install_script_extensions() -> void:
 	# extensions_dir_path = mod_dir_path.path_join("extensions") # Godot 4
 
 		# ModLoaderMod.install_script_extension(extensions_dir_path.plus_file(...))
-
+	ModLoaderMod.install_script_extension(ext_dir.plus_file("singletons/weapon_service.gd"))
 
 
 func add_translations() -> void:

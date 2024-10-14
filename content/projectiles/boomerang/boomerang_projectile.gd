@@ -7,11 +7,11 @@ export (bool) var enable_physics_process = false
 export (int) var rotation_speed = 0
 
 
-
 var weapon_stats:Resource
 var spawn_position:Vector2
 
-var hit_max_range:bool
+var _hit_max_range:bool
+var _interp = 0.0
 
 var player_index:int setget _set_player_index, _get_player_index
 func _get_player_index()->int:
@@ -35,26 +35,27 @@ func _get_player()->Node:
 func _physics_process(_delta:float)->void :
 	rotation_degrees += rotation_speed
 	var add_dist = PROJECTILE_ADDITIONAL_DISTANCE
-	var target = _get_player()
-	var direction = (target.global_position - global_position).angle()
-	var interp = 0
+	var return_target = _get_player()
+	var return_direction = (return_target.global_position - global_position).angle()
+	
 	if ProgressData.is_manual_aim(player_index):
 		add_dist = PROJECTILE_ADDITIONAL_DISTANCE / 2.0
 		
-	if (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist)*.90 and not hit_max_range:
-		interp += 0.4*_delta
-		velocity = lerp(velocity, Vector2.RIGHT.rotated(direction) * (_hitbox.from.current_stats.projectile_speed/2), interp)
+	if not _hit_max_range and (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist)*0.75:
+		_interp += _delta
+		velocity = lerp(velocity, Vector2.RIGHT.rotated(return_direction) * (_hitbox.from.current_stats.projectile_speed/2), _interp)
+		
+		if (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist)*0.9:
+			_interp = 0.0
+			_hitbox.ignored_objects = []
+			_hit_max_range = true
 	
-	if (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist) and not hit_max_range:
-		interp = 0
-		hit_max_range = true
-	
-	if hit_max_range:
-		interp += 0.4*_delta
-		velocity = lerp(velocity, (Vector2.RIGHT.rotated(direction) * _hitbox.from.current_stats.projectile_speed * 2), interp)
+	if _hit_max_range:
+		_interp += max(0.01, (0.2 - _interp)) * _delta
+		velocity = lerp(velocity, (Vector2.RIGHT.rotated(return_direction) * _hitbox.from.current_stats.projectile_speed), _interp)
 		set_knockback_vector(Vector2.ZERO, 0.0, 0.0)
 		
-		if abs(global_position.distance_to(target.global_position)) < 10.0:
+		if abs(global_position.distance_to(return_target.global_position)) < 40.0:
 			set_to_be_destroyed()
 
 
