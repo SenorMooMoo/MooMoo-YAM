@@ -10,7 +10,7 @@
 
 [resource]
 script = ExtResource( 1 )
-cooldown = 40
+cooldown = 300
 damage = 6
 accuracy = 1.0
 crit_chance = 0.03
@@ -31,7 +31,7 @@ custom_on_cooldown_sprite = ExtResource( 7 )
 recoil = 25
 recoil_duration = 0.1
 additional_cooldown_every_x_shots = -1
-additional_cooldown_multiplier = -1.0
+additional_cooldown_multiplier = 0.0
 speed_percent_modifier = 0
 nb_projectiles = 1
 projectile_spread = 0.0
@@ -40,6 +40,6 @@ piercing_dmg_reduction = 0.5
 bounce = 0
 bounce_dmg_reduction = 0.0
 can_bounce = false
-projectile_speed = 1000
+projectile_speed = 1500
 increase_projectile_speed_with_range = false
 projectile_scene = ExtResource( 2 )

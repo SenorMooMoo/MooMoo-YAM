@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=9 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/boomerang/2/boomerang_2_data.tres" type="Resource" id=1]
 [ext_resource path="res://items/global/weapon_data.gd" type="Script" id=2]
@@ -7,7 +7,8 @@
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/boomerang/boomerang.tscn" type="PackedScene" id=5]
 [ext_resource path="res://items/sets/blunt/blunt_set_data.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/boomerang/1/boomerang_1_stats.tres" type="Resource" id=7]
-[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/boomerang/1/boomerang_1_effect_0.tres" type="Resource" id=8]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/boomerang/boomerang_effect_0.tres" type="Resource" id=8]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/boomerang/1/boomerang_1_effect_1.tres" type="Resource" id=9]
 
 [resource]
 script = ExtResource( 2 )
@@ -17,7 +18,7 @@ icon = ExtResource( 4 )
 name = "Boomerang"
 tier = 0
 value = 30
-effects = [ ExtResource( 8 ) ]
+effects = [ ExtResource( 8 ), ExtResource( 9 ) ]
 tracking_text = ""
 is_lockable = true
 is_cursed = false

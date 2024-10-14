@@ -35,28 +35,27 @@ func _get_player()->Node:
 func _physics_process(_delta:float)->void :
 	rotation_degrees += rotation_speed
 	var add_dist = PROJECTILE_ADDITIONAL_DISTANCE
-	var return_target = _get_player()
-	var return_direction = (return_target.global_position - global_position).angle()
 	
 	if ProgressData.is_manual_aim(player_index):
 		add_dist = PROJECTILE_ADDITIONAL_DISTANCE / 2.0
-		
-	if not _hit_max_range and (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist)*0.75:
-		_interp += _delta
-		velocity = lerp(velocity, Vector2.RIGHT.rotated(return_direction) * (_hitbox.from.current_stats.projectile_speed/2), _interp)
-		
-		if (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist)*0.9:
-			_interp = 0.0
-			_hitbox.ignored_objects = []
-			_hit_max_range = true
+
+	if not _hit_max_range and (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist)*0.7:
+		_interp = 0.0
+		_hitbox.ignored_objects = []
+		_hit_max_range = true
 	
 	if _hit_max_range:
-		_interp += max(0.01, (0.2 - _interp)) * _delta
-		velocity = lerp(velocity, (Vector2.RIGHT.rotated(return_direction) * _hitbox.from.current_stats.projectile_speed), _interp)
+		var return_target = _get_player()
+		var return_direction = (return_target.global_position - global_position).angle()
+		
+		_interp += clamp((0.2 + _interp), 1.00, 0.01) * _delta
+		velocity = lerp(velocity, (Vector2.RIGHT.rotated(return_direction) * weapon_stats.projectile_speed), _interp)
 		set_knockback_vector(Vector2.ZERO, 0.0, 0.0)
 		
 		if abs(global_position.distance_to(return_target.global_position)) < 40.0:
 			set_to_be_destroyed()
+			_do_boomerang_reload()
+			
 
 
 
@@ -120,4 +119,8 @@ func _on_Hitbox_critically_hit_something(_thing_hit:Node, _damage_dealt:int)->vo
 	for effect in remove_effects:
 		_hitbox.effects.erase(effect)
 
-
+func _do_boomerang_reload():
+	for effect in _hitbox.effects:
+		if effect is YAMBoomerangReloadOnReturn:
+			var from: Weapon = _hitbox.from
+			from.do_boomerang_reload()

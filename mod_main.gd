@@ -23,7 +23,7 @@ func install_script_extensions() -> void:
 
 		# ModLoaderMod.install_script_extension(extensions_dir_path.plus_file(...))
 	ModLoaderMod.install_script_extension(ext_dir.plus_file("singletons/weapon_service.gd"))
-
+	ModLoaderMod.install_script_extension(ext_dir.plus_file("weapons/weapon.gd"))
 
 func add_translations() -> void:
 	trans_dir = dir.plus_file("translations")
