@@ -11,7 +11,6 @@ var weapon_stats:Resource
 var spawn_position:Vector2
 
 var _hit_max_range:bool
-var _interp = 0.0
 
 var player_index:int setget _set_player_index, _get_player_index
 func _get_player_index()->int:
@@ -28,8 +27,8 @@ func _ready()->void :
 	set_physics_process(enable_physics_process)
 
 
-func _get_player()->Node:
-	return _hitbox.from._parent
+func _get_origin()->Node:
+	return _hitbox.from
 
 	
 func _physics_process(_delta:float)->void :
@@ -40,19 +39,17 @@ func _physics_process(_delta:float)->void :
 		add_dist = PROJECTILE_ADDITIONAL_DISTANCE / 2.0
 
 	if not _hit_max_range and (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist)*0.7:
-		_interp = 0.0
 		_hitbox.ignored_objects = []
 		_hit_max_range = true
 	
 	if _hit_max_range:
-		var return_target = _get_player()
-		var return_direction = (return_target.global_position - global_position).angle()
-		
-		_interp += clamp((0.2 + _interp), 1.00, 0.01) * _delta
-		velocity = lerp(velocity, (Vector2.RIGHT.rotated(return_direction) * weapon_stats.projectile_speed), _interp)
+		var lerp_forward = clamp((weapon_stats.projectile_speed - 500) / 20000 + 0.1, 0.4, 0.1)
+		var return_target = _get_origin()
+		var return_angle = (return_target.global_position - global_position).angle()
+		velocity = Vector2.RIGHT.rotated(lerp_angle(velocity.angle(), return_angle, lerp_forward)) * weapon_stats.projectile_speed
 		set_knockback_vector(Vector2.ZERO, 0.0, 0.0)
 		
-		if abs(global_position.distance_to(return_target.global_position)) < 40.0:
+		if abs(global_position.distance_to(return_target.global_position)) < 120.0:
 			set_to_be_destroyed()
 			_do_boomerang_reload()
 			
@@ -74,8 +71,9 @@ func _on_Hitbox_hit_something(thing_hit:Node, damage_dealt:int)->void :
 	if weapon_stats.bounce > 0:
 		bounce(thing_hit)
 	elif weapon_stats.piercing <= 0:
-		set_to_be_destroyed()
+		_hitbox.disable()
 	else :
+		_hitbox.enable()
 		weapon_stats.piercing -= 1
 		if _hitbox.damage > 0:
 			_hitbox.damage = max(1, _hitbox.damage - (_hitbox.damage * weapon_stats.piercing_dmg_reduction))
@@ -122,5 +120,8 @@ func _on_Hitbox_critically_hit_something(_thing_hit:Node, _damage_dealt:int)->vo
 func _do_boomerang_reload():
 	for effect in _hitbox.effects:
 		if effect is YAMBoomerangReloadOnReturn:
-			var from: Weapon = _hitbox.from
-			from.do_boomerang_reload()
+			var from: Node = _hitbox.from
+			if from is Weapon:
+				from.do_boomerang_reload()
+			else:
+				from._cooldown = 0.0
