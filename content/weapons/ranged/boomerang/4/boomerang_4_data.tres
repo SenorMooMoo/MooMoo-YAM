@@ -5,13 +5,13 @@
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/boomerang/boomerang.tscn" type="PackedScene" id=3]
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/boomerang/yam_boomerang_icon.png" type="Texture" id=4]
 [ext_resource path="res://items/sets/blunt/blunt_set_data.tres" type="Resource" id=5]
-[ext_resource path="res://items/sets/precise/precise_set_data.tres" type="Resource" id=6]
+[ext_resource path="res://items/sets/primitive/primitive_set_data.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/boomerang/boomerang_effect_0.tres" type="Resource" id=7]
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/boomerang/4/boomerang_4_effect_1.tres" type="Resource" id=8]
 
 [resource]
 script = ExtResource( 1 )
-my_id = "weapon_boomerang_4"
+my_id = "weapon_yam_boomerang_4"
 unlocked_by_default = true
 icon = ExtResource( 4 )
 name = "Boomerang"
@@ -21,7 +21,7 @@ effects = [ ExtResource( 7 ), ExtResource( 8 ) ]
 tracking_text = ""
 is_lockable = true
 is_cursed = false
-weapon_id = "weapon_boomerang"
+weapon_id = "weapon_yam_boomerang"
 type = 1
 sets = [ ExtResource( 6 ), ExtResource( 5 ) ]
 scene = ExtResource( 3 )

@@ -72,6 +72,7 @@ func _on_Hitbox_hit_something(thing_hit:Node, damage_dealt:int)->void :
 		bounce(thing_hit)
 	elif weapon_stats.piercing <= 0:
 		_hitbox.disable()
+		_hit_max_range = true
 	else :
 		_hitbox.enable()
 		weapon_stats.piercing -= 1
@@ -89,7 +90,7 @@ func bounce(thing_hit:Node)->void :
 	var direction = (target.global_position - global_position).angle() if target != null else rand_range( - PI, PI)
 	velocity = Vector2.RIGHT.rotated(direction) * velocity.length()
 	rotation = velocity.angle()
-	weapon_stats.max_range = 99999
+	weapon_stats.max_range += 100
 	set_knockback_vector(Vector2.ZERO, 0.0, 0.0)
 	if _hitbox.damage > 0:
 		_hitbox.damage = max(1, _hitbox.damage - (_hitbox.damage * weapon_stats.bounce_dmg_reduction))
