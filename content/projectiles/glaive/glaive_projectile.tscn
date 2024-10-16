@@ -2,7 +2,7 @@
 
 [ext_resource path="res://mods-unpacked/MooMoo-YAM/content/projectiles/boomerang/boomerang_projectile.gd" type="Script" id=1]
 [ext_resource path="res://projectiles/player_projectile.tscn" type="PackedScene" id=2]
-[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/projectiles/boomerang/yam_boomerang_projectile.png" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/projectiles/glaive/yam_glaive_projectile.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -13,7 +13,7 @@ length = 0.02
 loop = true
 step = 0.02
 
-[node name="BoomerangProjectile" instance=ExtResource( 2 )]
+[node name="GlaiveProjectile" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 enable_physics_process = true
 rotation_speed = 25

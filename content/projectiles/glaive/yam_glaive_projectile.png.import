@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/yam_boomerang.png-e4919190c1535f8a8eefebfe6cfa2677.stex"
+path="res://.import/yam_glaive_projectile.png-f12a40f5761797ed00590a82db2e50ca.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/MooMoo-YAM/content/projectiles/boomerang/yam_boomerang.png"
-dest_files=[ "res://.import/yam_boomerang.png-e4919190c1535f8a8eefebfe6cfa2677.stex" ]
+source_file="res://mods-unpacked/MooMoo-YAM/content/projectiles/glaive/yam_glaive_projectile.png"
+dest_files=[ "res://.import/yam_glaive_projectile.png-f12a40f5761797ed00590a82db2e50ca.stex" ]
 
 [params]
 

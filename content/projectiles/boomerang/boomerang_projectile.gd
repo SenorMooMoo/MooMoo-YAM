@@ -1,7 +1,7 @@
 class_name YAMBoomerangProjectile
 extends Projectile
 
-const PROJECTILE_ADDITIONAL_DISTANCE = 100
+const PROJECTILE_ADDITIONAL_DISTANCE = 20
 
 export (bool) var enable_physics_process = false
 export (int) var rotation_speed = 0
@@ -11,6 +11,8 @@ var weapon_stats:Resource
 var spawn_position:Vector2
 
 var _hit_max_range:bool
+var _original_range:int
+var _range_elapsed:int
 
 var player_index:int setget _set_player_index, _get_player_index
 func _get_player_index()->int:
@@ -21,6 +23,7 @@ func _set_player_index(_v:int)->void :
 
 func init()->void :
 	_sprite.modulate.a = ProgressData.settings.projectile_opacity
+	_original_range = weapon_stats.max_range
 
 
 func _ready()->void :
@@ -37,16 +40,18 @@ func _physics_process(_delta:float)->void :
 	
 	if ProgressData.is_manual_aim(player_index):
 		add_dist = PROJECTILE_ADDITIONAL_DISTANCE / 2.0
-
-	if not _hit_max_range and (global_position - spawn_position).length() > (weapon_stats.max_range + add_dist)*0.7:
+	
+	_range_elapsed = (global_position - spawn_position).length()
+	
+	if not _hit_max_range and _range_elapsed > (weapon_stats.max_range + add_dist):
 		_hitbox.ignored_objects = []
 		_hit_max_range = true
 	
 	if _hit_max_range:
-		var lerp_forward = clamp((weapon_stats.projectile_speed - 500) / 20000 + 0.1, 0.4, 0.1)
+		var lerp_factor = clamp((weapon_stats.projectile_speed - 500) / 20000 + 0.1, 0.4, 0.1)
 		var return_target = _get_origin()
 		var return_angle = (return_target.global_position - global_position).angle()
-		velocity = Vector2.RIGHT.rotated(lerp_angle(velocity.angle(), return_angle, lerp_forward)) * weapon_stats.projectile_speed
+		velocity = Vector2.RIGHT.rotated(lerp_angle(velocity.angle(), return_angle, lerp_factor)) * weapon_stats.projectile_speed
 		set_knockback_vector(Vector2.ZERO, 0.0, 0.0)
 		
 		if abs(global_position.distance_to(return_target.global_position)) < 120.0:
@@ -67,9 +72,15 @@ func set_effects(effects:Array)->void :
 
 func _on_Hitbox_hit_something(thing_hit:Node, damage_dealt:int)->void :
 	_hitbox.ignored_objects = [thing_hit]
-
-	if weapon_stats.bounce > 0:
-		bounce(thing_hit)
+	
+	var bounce_target = thing_hit._entity_spawner_ref.get_rand_enemy()
+	var length_to_target = (global_position - bounce_target.global_position).length() if bounce_target != null else 0
+	var bounce_extend_range = max(_original_range, 400)
+	var bounce_max_possible_range = (weapon_stats.max_range + PROJECTILE_ADDITIONAL_DISTANCE + bounce_extend_range - _range_elapsed)
+	
+	if weapon_stats.bounce > 0 and bounce_target != null and length_to_target < bounce_max_possible_range:
+		weapon_stats.max_range += length_to_target
+		bounce(bounce_target)
 	elif weapon_stats.piercing <= 0:
 		_hitbox.disable()
 		_hit_max_range = true
@@ -84,13 +95,11 @@ func _on_Hitbox_hit_something(thing_hit:Node, damage_dealt:int)->void :
 	emit_signal("hit_something", thing_hit, damage_dealt)
 
 
-func bounce(thing_hit:Node)->void :
+func bounce(target:Node)->void :
 	weapon_stats.bounce -= 1
-	var target = thing_hit._entity_spawner_ref.get_rand_enemy()
 	var direction = (target.global_position - global_position).angle() if target != null else rand_range( - PI, PI)
 	velocity = Vector2.RIGHT.rotated(direction) * velocity.length()
 	rotation = velocity.angle()
-	weapon_stats.max_range += 100
 	set_knockback_vector(Vector2.ZERO, 0.0, 0.0)
 	if _hitbox.damage > 0:
 		_hitbox.damage = max(1, _hitbox.damage - (_hitbox.damage * weapon_stats.bounce_dmg_reduction))

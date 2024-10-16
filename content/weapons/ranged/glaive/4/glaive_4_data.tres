@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=9 format=2]
+
+[ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/glaive/glaive_effect_0.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/glaive/4/glaive_4_effect_1.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/glaive/4/glaive_4_stats.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/glaive/yam_glaive_icon.png" type="Texture" id=5]
+[ext_resource path="res://mods-unpacked/MooMoo-YAM/content/weapons/ranged/glaive/glaive.tscn" type="PackedScene" id=6]
+[ext_resource path="res://items/sets/precise/precise_set_data.tres" type="Resource" id=7]
+[ext_resource path="res://items/sets/blade/blade_set_data.tres" type="Resource" id=8]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "weapon_yam_glaive_4"
+unlocked_by_default = true
+icon = ExtResource( 5 )
+name = "Glaive"
+tier = 3
+value = 110
+effects = [ ExtResource( 2 ), ExtResource( 3 ) ]
+tracking_text = ""
+is_lockable = true
+is_cursed = false
+weapon_id = "weapon_yam_glaive"
+type = 1
+sets = [ ExtResource( 8 ), ExtResource( 7 ) ]
+scene = ExtResource( 6 )
+stats = ExtResource( 4 )
+add_to_chars_as_starting = [  ]
