@@ -6,8 +6,9 @@
 script = ExtResource( 1 )
 key = ""
 text_key = "effect_boomerang_reload_on_return"
-value = 1
+value = 14
 custom_key = ""
 storage_method = 0
 effect_sign = 3
 custom_args = [  ]
+value2 = 3.0

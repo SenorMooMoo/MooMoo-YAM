@@ -132,6 +132,8 @@ func _do_boomerang_reload():
 		if effect is YAMBoomerangReloadOnReturn:
 			var from: Node = _hitbox.from
 			if from is Weapon:
-				from.do_boomerang_reload()
+				from.do_boomerang_reload(effect.value, effect.value2)
+			elif from is Turret:
+				from.set_instant_shoot()
 			else:
-				from._cooldown = 0.0
+				push_error ("from is not a Weapon or Turret!")
