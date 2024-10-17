@@ -13,6 +13,7 @@ var spawn_position:Vector2
 var _hit_max_range:bool
 var _original_range:int
 var _range_elapsed:int
+var _previous_target_position = null
 
 var player_index:int setget _set_player_index, _get_player_index
 func _get_player_index()->int:
@@ -71,20 +72,27 @@ func set_effects(effects:Array)->void :
 
 
 func _on_Hitbox_hit_something(thing_hit:Node, damage_dealt:int)->void :
+	if _previous_target_position != null:
+		weapon_stats.max_range -= (thing_hit.global_position - _previous_target_position).length()
+		
 	_hitbox.ignored_objects = [thing_hit]
 	
 	var bounce_target = thing_hit._entity_spawner_ref.get_rand_enemy()
 	var length_to_target = (global_position - bounce_target.global_position).length() if bounce_target != null else 0
-	var bounce_extend_range = max(_original_range, 400)
+	var bounce_extend_range = max(_original_range, 300)
 	var bounce_max_possible_range = (weapon_stats.max_range + PROJECTILE_ADDITIONAL_DISTANCE + bounce_extend_range - _range_elapsed)
+	
+	_previous_target_position = bounce_target.global_position if bounce_target != null else null
 	
 	if weapon_stats.bounce > 0 and bounce_target != null and length_to_target < bounce_max_possible_range:
 		weapon_stats.max_range += length_to_target
 		bounce(bounce_target)
 	elif weapon_stats.piercing <= 0:
+		_previous_target_position = null
 		_hitbox.disable()
 		_hit_max_range = true
 	else :
+		_previous_target_position = null
 		_hitbox.enable()
 		weapon_stats.piercing -= 1
 		if _hitbox.damage > 0:
@@ -103,7 +111,7 @@ func bounce(target:Node)->void :
 	set_knockback_vector(Vector2.ZERO, 0.0, 0.0)
 	if _hitbox.damage > 0:
 		_hitbox.damage = max(1, _hitbox.damage - (_hitbox.damage * weapon_stats.bounce_dmg_reduction))
-
+	
 
 func _on_Hitbox_critically_hit_something(_thing_hit:Node, _damage_dealt:int)->void :
 	var remove_effects = []
