@@ -6,12 +6,13 @@ const PROJECTILE_ADDITIONAL_DISTANCE = 20
 export (bool) var enable_physics_process = false
 export (int) var rotation_speed = 0
 
+onready var _bounce_targeter: = $BounceTargeterHitbox as Area2D
 
 var weapon_stats:Resource
 var spawn_position:Vector2
 
 var _hit_max_range:bool
-var _original_range:int
+#var _original_range:int
 var _range_elapsed:int
 var _previous_target_position = null
 
@@ -24,7 +25,8 @@ func _set_player_index(_v:int)->void :
 
 func init()->void :
 	_sprite.modulate.a = ProgressData.settings.projectile_opacity
-	_original_range = weapon_stats.max_range
+#	_original_range = weapon_stats.max_range
+	_bounce_targeter.set_range(weapon_stats.max_range) if _bounce_targeter != null else null
 
 
 func _ready()->void :
@@ -77,26 +79,26 @@ func _on_Hitbox_hit_something(thing_hit:Node, damage_dealt:int)->void :
 		
 	_hitbox.ignored_objects = [thing_hit]
 	
-	var bounce_target = thing_hit._entity_spawner_ref.get_rand_enemy()
+	var bounce_target = _bounce_targeter.get_new_target(_hitbox.ignored_objects)
 	var length_to_target = (global_position - bounce_target.global_position).length() if bounce_target != null else 0
-	var bounce_extend_range = max(_original_range, 300)
-	var bounce_max_possible_range = (weapon_stats.max_range + PROJECTILE_ADDITIONAL_DISTANCE + bounce_extend_range - _range_elapsed)
-	
+#	var bounce_extend_range = max(_original_range, 250)
+#	var bounce_max_possible_range = (weapon_stats.max_range + PROJECTILE_ADDITIONAL_DISTANCE + bounce_extend_range - _range_elapsed)
+		
 	_previous_target_position = bounce_target.global_position if bounce_target != null else null
 	
-	if weapon_stats.bounce > 0 and bounce_target != null and length_to_target < bounce_max_possible_range:
-		weapon_stats.max_range += length_to_target
-		bounce(bounce_target)
-	elif weapon_stats.piercing <= 0:
+	if weapon_stats.piercing > 0:
 		_previous_target_position = null
-		_hitbox.disable()
-		_hit_max_range = true
-	else :
-		_previous_target_position = null
-		_hitbox.enable()
 		weapon_stats.piercing -= 1
 		if _hitbox.damage > 0:
 			_hitbox.damage = max(1, _hitbox.damage - (_hitbox.damage * weapon_stats.piercing_dmg_reduction))
+			
+	elif weapon_stats.bounce > 0 and bounce_target != null:# and length_to_target < bounce_max_possible_range:
+		weapon_stats.max_range += length_to_target
+		bounce(bounce_target)
+		
+	else:
+		_previous_target_position = null
+		_hit_max_range = true
 
 	RunData.manage_life_steal(weapon_stats, _get_player_index())
 
@@ -142,6 +144,6 @@ func _do_boomerang_reload():
 			if from is Weapon:
 				from.do_boomerang_reload(effect.value, effect.value2)
 			elif from is Turret:
-				from.set_instant_shoot()
+				from._cooldown = max(effect.value - (from._current_level * effect.value2), 1)
 			else:
 				push_error ("from is not a Weapon or Turret!")

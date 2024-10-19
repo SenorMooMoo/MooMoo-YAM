@@ -6,13 +6,13 @@
 
 [resource]
 script = ExtResource( 1 )
-cooldown = 300
+cooldown = 480
 damage = 20
 accuracy = 1.0
-crit_chance = 0.3
+crit_chance = 0.35
 crit_damage = 1.5
 min_range = 0
-max_range = 500
+max_range = 400
 knockback = 0
 knockback_piercing = 0.0
 can_have_positive_knockback = true
@@ -32,7 +32,7 @@ speed_percent_modifier = 0
 nb_projectiles = 1
 projectile_spread = 0.0
 piercing = 0
-piercing_dmg_reduction = 0.1
+piercing_dmg_reduction = 0.0
 bounce = 3
 bounce_dmg_reduction = 0.1
 can_bounce = true
