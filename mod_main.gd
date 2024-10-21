@@ -38,7 +38,6 @@ func _ready()->void:
 	var ContentLoader = get_node("/root/ModLoader/Darkly77-ContentLoader/ContentLoader")
 
 	# Ranged_Weapons
-	ContentLoader.load_data(dir + "/content_data/weapons/ranged/boomerang.tres", YAM_LOG)
 	ContentLoader.load_data(dir + "/content_data/weapons/ranged/plasma_ray.tres", YAM_LOG)
 	
 	# Weapon_Sets
