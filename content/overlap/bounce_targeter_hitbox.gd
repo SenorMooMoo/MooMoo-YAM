@@ -13,13 +13,13 @@ func set_range(range_stat) -> void:
 func _on_BounceTargeterHitbox_body_entered(body) -> void:
 	bounce_target_list.push_back(body)
 
-func get_target_list():
-	return bounce_target_list
-
 func get_new_target(ignore_unit):
 	for i in bounce_target_list:
-		if i.dead == true:
+		if is_instance_valid(i) == false:
 			bounce_target_list.erase(i)
+		elif is_instance_valid(i) == true:
+			if i.dead == true:
+				bounce_target_list.erase(i)
 	var unit = _get_new_target(bounce_target_list, ignore_unit)
 	return unit
 	
