@@ -80,11 +80,12 @@ func _on_Hitbox_hit_something(thing_hit:Node, damage_dealt:int)->void :
 	_hitbox.ignored_objects = [thing_hit]
 	
 	var bounce_target = _bounce_targeter.get_new_target(_hitbox.ignored_objects)
-	var length_to_target = (global_position - bounce_target.global_position).length() if bounce_target != null else 0
+	
+	var length_to_target = (global_position - bounce_target.global_position).length() if bounce_target != null and is_instance_valid(bounce_target) else 0
 #	var bounce_extend_range = max(_original_range, 250)
 #	var bounce_max_possible_range = (weapon_stats.max_range + PROJECTILE_ADDITIONAL_DISTANCE + bounce_extend_range - _range_elapsed)
 		
-	_previous_target_position = bounce_target.global_position if bounce_target != null else null
+	_previous_target_position = bounce_target.global_position if bounce_target != null and is_instance_valid(bounce_target) else null
 	
 	if weapon_stats.piercing > 0:
 		_previous_target_position = null
@@ -92,7 +93,7 @@ func _on_Hitbox_hit_something(thing_hit:Node, damage_dealt:int)->void :
 		if _hitbox.damage > 0:
 			_hitbox.damage = max(1, _hitbox.damage - (_hitbox.damage * weapon_stats.piercing_dmg_reduction))
 			
-	elif weapon_stats.bounce > 0 and bounce_target != null:# and length_to_target < bounce_max_possible_range:
+	elif weapon_stats.bounce > 0 and bounce_target != null and is_instance_valid(bounce_target):# and length_to_target < bounce_max_possible_range:
 		weapon_stats.max_range += length_to_target
 		bounce(bounce_target)
 		
